@@ -1,0 +1,69 @@
+{
+  "id": "ER-INC-482",
+  "version": 1,
+  "incident": {
+    "id": "INC-482",
+    "title": "Retry charged the customer twice after a timeout",
+    "occurred_at": "2026-09-18T16:42:00Z",
+    "severity": "SEV-1",
+    "fix_pr": "https://github.com/acme/payments-api/pull/482"
+  },
+  "failure_class": "duplicate_side_effect",
+  "requirement": {
+    "statement": "A retry must never create a second posted charge for the same idempotency key.",
+    "assumptions": [
+      "The idempotency key is supplied by the caller and is stable across retries."
+    ]
+  },
+  "scope": {
+    "paths": [
+      "src/payments/**",
+      "src/idempotency/**"
+    ],
+    "dependencies": []
+  },
+  "test": {
+    "path": ".everrule/tests/inc-482-duplicate-charge.test.ts",
+    "runner": "node-test",
+    "required": true,
+    "sha256": "d0798c67bfe7903d313a6318cf6f159a0edf83c4cd5b580dc16c4900343ef652"
+  },
+  "verification": {
+    "mode": "exact",
+    "broken_revision": "abc1234broken",
+    "broken_result": "fail",
+    "fixed_revision": "def5678fixed",
+    "fixed_result": "pass",
+    "verified_at": "2026-10-04T00:00:00Z"
+  },
+  "loopholes": [
+    {
+      "id": "immediate_retry",
+      "title": "Immediate retry",
+      "result": "holds"
+    },
+    {
+      "id": "changed_payload",
+      "title": "Same key, changed payload",
+      "result": "holds"
+    },
+    {
+      "id": "concurrent_retry",
+      "title": "Concurrent retry",
+      "result": "owner_decides",
+      "note": "Needs a serialized map or a database constraint; decide at approval."
+    }
+  ],
+  "approval": {
+    "status": "approved",
+    "approver_name": "Alex Morgan",
+    "approver_role": "Payments service owner",
+    "approved_at": "2026-10-04T00:00:00Z",
+    "rationale": "Covers immediate and changed-payload retries. Concurrent retries rely on the database unique key; accepted at approval.",
+    "contract_hash": "51b62acd052b14b66aedd3e2189db0ad03528187ff5f4c72af364a01f34f221f"
+  },
+  "ownership": {
+    "accountable_team": "payments-platform",
+    "review_due": "2027-04-04"
+  }
+}

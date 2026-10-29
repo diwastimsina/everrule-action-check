@@ -1,0 +1,42 @@
+{
+  "id": "ER-TEAM-001",
+  "version": 1,
+  "origin": "team",
+  "failure_class": "other",
+  "requirement": {
+    "statement": "A refund can never exceed the original charge, including several partial refunds added together.",
+    "assumptions": [
+      "Amounts are whole cents in the charge's currency."
+    ]
+  },
+  "scope": {
+    "paths": [
+      "src/payments/**"
+    ],
+    "dependencies": []
+  },
+  "test": {
+    "path": ".everrule/tests/team-001-refund-limit.test.ts",
+    "runner": "node-test",
+    "required": true,
+    "sha256": "90f02f1d557abbebcbb3468e722a1cd718bc982b94fa74d90dd1a58d96b40dfd"
+  },
+  "verification": {
+    "mode": "asserted",
+    "basis": "Payments policy: refunds are capped at the captured amount. Written by the payments team; no incident behind it.",
+    "verified_at": "2026-10-17T00:00:00Z"
+  },
+  "loopholes": [],
+  "approval": {
+    "status": "approved",
+    "approver_name": "Alex Morgan",
+    "approver_role": "Payments service owner",
+    "approved_at": "2026-10-17T00:00:00Z",
+    "rationale": "Team rule from the payments policy. Not proven against a failure; the test pins the cap, including partial refunds.",
+    "contract_hash": "a844c2ae33b2992bf63884417ed9aeae8fc0bdfa4cb7ad5c07ce2fa80e5ce188"
+  },
+  "ownership": {
+    "accountable_team": "payments-platform",
+    "review_due": "2027-04-17"
+  }
+}
