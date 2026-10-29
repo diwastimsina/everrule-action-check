@@ -16,8 +16,10 @@ jobs:
         with: { fetch-depth: 0 }
       - uses: actions/setup-node@v4      # this repository's tests run on Node 24
         with: { node-version: 24 }
+      - run: npm ci                       # tsx loads the TypeScript tests
       - uses: everrule/prevent-action@v1
         with: { mode: evaluate }
+        env: { NODE_OPTIONS: "--import tsx" }
   everrule-verify:               # never required; proves a draft before approval
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
