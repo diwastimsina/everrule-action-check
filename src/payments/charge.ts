@@ -9,7 +9,6 @@ export class Ledger {
 
   createCharge(idempotencyKey: string, amount: number): Charge {
     const existing = this.byKey.get(idempotencyKey);
-    if (existing) return existing; // the fix for INC-482
     const charge = { id: `ch_${this.posted_.length + 1}`, idempotencyKey, amount };
     this.posted_.push(charge);
     this.byKey.set(idempotencyKey, charge);
