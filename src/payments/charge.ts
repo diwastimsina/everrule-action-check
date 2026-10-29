@@ -1,4 +1,4 @@
-// Synthetic payments module for the EverRule Prevent fixture. Not a real system.
+// Synthetic payments module for the EverRule Prevent fixture. Not a real system (comment edit).
 // After INC-482 ("retry charged the customer twice"), createCharge became
 // idempotent: the same idempotency key never posts a second charge.
 export interface Charge { id: string; idempotencyKey: string; amount: number }
