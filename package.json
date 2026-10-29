@@ -1,0 +1,6 @@
+{
+  "name": "everrule-action-check",
+  "private": true,
+  "type": "module",
+  "devDependencies": { "tsx": "4.23.13" }
+}
