@@ -12,9 +12,9 @@ jobs:
     if: github.event_name != 'push'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with: { fetch-depth: 0 }
-      - uses: actions/setup-node@v4      # this repository's tests run on Node 24
+      - uses: actions/setup-node@v7      # this repository's tests run on Node 24
         with: { node-version: 24 }
       - run: npm ci                       # tsx loads the TypeScript tests
       - uses: everrule/prevent-action@v1
@@ -24,7 +24,7 @@ jobs:
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with: { fetch-depth: 0 }
       - uses: everrule/prevent-action@v1
         with: { mode: verify }
